@@ -6,8 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hb0730.jsons.SimpleJson;
 import com.hb0730.jsons.SimpleJsonException;
 
-import java.lang.reflect.Type;
-
 /**
  * jackson
  *
@@ -19,6 +17,7 @@ public class JacksonImpl implements SimpleJson {
     private ObjectMapper mapper;
 
     public JacksonImpl() {
+        this(new ObjectMapper());
     }
 
     public JacksonImpl(ObjectMapper mapper) {
@@ -75,13 +74,13 @@ public class JacksonImpl implements SimpleJson {
     }
 
     @Override
-    public <T> T fromJson(String json, Type type) {
+    public <T, Type> T fromJson(String json, Type type) {
         return this.fromJson(json, type, null);
     }
 
     @Override
     @SuppressWarnings({"unchecked"})
-    public <T, C> T fromJson(String json, Type type, C client) {
+    public <T, Type, C> T fromJson(String json, Type type, C client) {
         supportJavaType(type);
         boolean javaType = type instanceof JavaType;
 
@@ -108,7 +107,7 @@ public class JacksonImpl implements SimpleJson {
         }
     }
 
-    protected void supportJavaType(Type type) {
+    protected <type> void supportJavaType(type type) {
         if (!(type instanceof JavaType) && !(type instanceof TypeReference)) {
             throw new SimpleJsonException("java type mismatch");
         }

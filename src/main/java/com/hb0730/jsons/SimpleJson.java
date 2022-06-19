@@ -1,7 +1,5 @@
 package com.hb0730.jsons;
 
-import java.lang.reflect.Type;
-
 /**
  * 对实现的方法定义
  *
@@ -84,25 +82,28 @@ public interface SimpleJson {
      */
     <T, C> T fromJson(String json, Class<T> clazz, C client);
 
-    /**
-     * json string to Object
-     *
-     * @param json json string
-     * @param type Object type
-     * @param <T>  Object type
-     * @return Object
-     */
-    <T> T fromJson(String json, Type type);
 
     /**
      * json string to Object
      *
-     * @param json   json string
-     * @param type   Object type
-     * @param client core class
-     * @param <T>    Object type
-     * @param <C>    core class
+     * @param json   json字符串
+     * @param type   复杂类型,比如:{@link  java.lang.reflect.Type},{@link  com.fasterxml.jackson.core.type.TypeReference}
+     * @param <T>    结果类型
+     * @param <Type> 复杂类型
      * @return Object
      */
-    <T, C> T fromJson(String json, Type type, C client);
+    <T, Type> T fromJson(String json, Type type);
+
+    /**
+     * json string to Object
+     *
+     * @param json   json字符串
+     * @param type   复杂类型,比如:{@link  java.lang.reflect.Type},{@link  com.fasterxml.jackson.core.type.TypeReference}
+     * @param client json客户端
+     * @param <T>    结果类型
+     * @param <C>    json客户端类型
+     * @param <Type> 复杂类型
+     * @return Object
+     */
+    <T, Type, C> T fromJson(String json, Type type, C client);
 }
