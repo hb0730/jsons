@@ -1,4 +1,4 @@
-package com.hb0730.jsons.jackson;
+package com.hb0730.jsons.support.jackson;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;

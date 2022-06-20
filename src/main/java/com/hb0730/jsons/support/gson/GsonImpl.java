@@ -1,4 +1,4 @@
-package com.hb0730.jsons.gson;
+package com.hb0730.jsons.support.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

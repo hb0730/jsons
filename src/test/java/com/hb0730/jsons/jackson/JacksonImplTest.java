@@ -2,6 +2,7 @@ package com.hb0730.jsons.jackson;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.hb0730.jsons.model.TestModel;
+import com.hb0730.jsons.support.jackson.JacksonImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
