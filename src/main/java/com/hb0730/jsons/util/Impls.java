@@ -14,15 +14,6 @@ public enum Impls {
      * gson
      */
     GSON("com.google.gson.Gson"),
-    /**
-     * fastjson
-     */
-    FASTJSON(""),
-
-    /**
-     * fastjson2
-     */
-    FASTJSON2(""),
     ;
 
     private final String value;
