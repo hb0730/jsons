@@ -1,6 +1,6 @@
 # jsons
 
-java json list (jackson,gson,fastjson)
+java json list (jackson,gson ...)
 
 # maven
 
@@ -25,6 +25,7 @@ java json list (jackson,gson,fastjson)
 ```
 
 # 优先级
+
 ```
 FastJson > Gson
 ```
