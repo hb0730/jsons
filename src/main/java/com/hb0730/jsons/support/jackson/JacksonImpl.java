@@ -3,8 +3,8 @@ package com.hb0730.jsons.support.jackson;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hb0730.jsons.SimpleJson;
 import com.hb0730.jsons.SimpleJsonException;
+import com.hb0730.jsons.support.AbstractSimpleJson;
 
 /**
  * jackson
@@ -13,7 +13,7 @@ import com.hb0730.jsons.SimpleJsonException;
  * @date 2022/6/18
  * @since 1.0.0
  */
-public class JacksonImpl implements SimpleJson {
+public class JacksonImpl extends AbstractSimpleJson {
     private ObjectMapper mapper;
 
     public JacksonImpl() {
@@ -37,12 +37,7 @@ public class JacksonImpl implements SimpleJson {
     }
 
     @Override
-    public String toJson(Object obj) {
-        return this.toJson(obj, null);
-    }
-
-    @Override
-    public <C> String toJson(Object obj, final C client) {
+    protected <C> String doToJson(Object obj, C client) {
         try {
             if (null == client) {
                 return this.mapper.writeValueAsString(obj);
@@ -52,16 +47,10 @@ public class JacksonImpl implements SimpleJson {
         } catch (Exception e) {
             throw new SimpleJsonException(e);
         }
-
     }
 
     @Override
-    public <T> T fromJson(String json, Class<T> clazz) {
-        return this.fromJson(json, clazz, null);
-    }
-
-    @Override
-    public <T, C> T fromJson(String json, Class<T> clazz, C client) {
+    protected <T, C> T doFromJson(String json, Class<T> clazz, C client) {
         try {
             if (null == client) {
                 return this.mapper.readValue(json, clazz);
@@ -74,13 +63,8 @@ public class JacksonImpl implements SimpleJson {
     }
 
     @Override
-    public <T, Type> T fromJson(String json, Type type) {
-        return this.fromJson(json, type, null);
-    }
-
-    @Override
     @SuppressWarnings({"unchecked"})
-    public <T, Type, C> T fromJson(String json, Type type, C client) {
+    protected <T, Type, C> T doFromJson(String json, Type type, C client) {
         supportJavaType(type);
         boolean javaType = type instanceof JavaType;
 

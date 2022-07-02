@@ -1,9 +1,11 @@
 package com.hb0730.jsons.support.gson;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hb0730.jsons.SimpleJson;
 import com.hb0730.jsons.SimpleJsonException;
+import com.hb0730.jsons.support.AbstractSimpleJson;
 
 /**
  * gson
@@ -12,7 +14,7 @@ import com.hb0730.jsons.SimpleJsonException;
  * @date 2022/6/19
  * @since 1.0.0
  */
-public class GsonImpl implements SimpleJson {
+public class GsonImpl extends AbstractSimpleJson {
     private Gson gson;
 
     public GsonImpl() {
@@ -36,12 +38,7 @@ public class GsonImpl implements SimpleJson {
     }
 
     @Override
-    public String toJson(Object obj) {
-        return this.toJson(obj, null);
-    }
-
-    @Override
-    public <C> String toJson(Object obj, C client) {
+    protected <C> String doToJson(Object obj, C client) {
         if (null == client) {
             return gson.toJson(obj);
         }
@@ -50,12 +47,7 @@ public class GsonImpl implements SimpleJson {
     }
 
     @Override
-    public <T> T fromJson(String json, Class<T> clazz) {
-        return this.fromJson(json, clazz, null);
-    }
-
-    @Override
-    public <T, C> T fromJson(String json, Class<T> clazz, C client) {
+    protected <T, C> T doFromJson(String json, Class<T> clazz, C client) {
         if (null == client) {
             return this.gson.fromJson(json, clazz);
         }
@@ -64,12 +56,7 @@ public class GsonImpl implements SimpleJson {
     }
 
     @Override
-    public <T, Type> T fromJson(String json, Type type) {
-        return this.fromJson(json, type, null);
-    }
-
-    @Override
-    public <T, Type, C> T fromJson(String json, Type type, C client) {
+    protected <T, Type, C> T doFromJson(String json, Type type, C client) {
         supportJavaType(type);
         if (null == client) {
             return this.gson.fromJson(json, (java.lang.reflect.Type) type);

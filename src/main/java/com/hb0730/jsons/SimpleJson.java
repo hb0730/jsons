@@ -40,7 +40,7 @@ public interface SimpleJson {
      * to json string
      *
      * @param obj object
-     * @return json string
+     * @return json string,可能为空
      */
     String toJson(Object obj);
 
@@ -56,7 +56,7 @@ public interface SimpleJson {
      * @param obj    object
      * @param client core class
      * @param <C>    core class type
-     * @return json string
+     * @return json string,可能为空
      */
     <C> String toJson(Object obj, C client);
 
@@ -66,7 +66,7 @@ public interface SimpleJson {
      * @param json  json string
      * @param clazz object class
      * @param <T>   object class type
-     * @return Object
+     * @return Object,可能为空
      */
     <T> T fromJson(String json, Class<T> clazz);
 
@@ -78,7 +78,7 @@ public interface SimpleJson {
      * @param client core class
      * @param <T>    object class type
      * @param <C>    core class type
-     * @return Object
+     * @return Object,可能为空
      */
     <T, C> T fromJson(String json, Class<T> clazz, C client);
 
@@ -90,7 +90,7 @@ public interface SimpleJson {
      * @param type   复杂类型,比如:{@link  java.lang.reflect.Type},{@link  com.fasterxml.jackson.core.type.TypeReference}
      * @param <T>    结果类型
      * @param <Type> 复杂类型
-     * @return Object
+     * @return Object,可能为空
      */
     <T, Type> T fromJson(String json, Type type);
 
@@ -103,7 +103,7 @@ public interface SimpleJson {
      * @param <T>    结果类型
      * @param <C>    json客户端类型
      * @param <Type> 复杂类型
-     * @return Object
+     * @return Object,可能为空
      */
     <T, Type, C> T fromJson(String json, Type type, C client);
 }
