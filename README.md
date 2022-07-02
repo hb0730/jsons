@@ -43,5 +43,5 @@ java json list (jackson,gson ...)
 # 优先级
 
 ```
-FastJson > Gson
+Jackson > Gson
 ```
