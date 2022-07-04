@@ -33,6 +33,7 @@ java json list (jackson,gson ...)
 
 * [jackson](https://github.com/FasterXML/jackson-databind)
 * [gson](https://github.com/google/gson)
+* [jsonb](https://github.com/eclipse-ee4j/jsonb-api)
 
 # use
 
@@ -43,5 +44,18 @@ java json list (jackson,gson ...)
 # 优先级
 
 ```
-Jackson > Gson
+Jackson > Gson > jsonb
+```
+
+# 注意
+## JsonB
+`JSON-B` 是一个标准绑定层，用于将 Java 对象转换为 JSON 消息/从 JSON 消息转换
+
+`Yasson` 是 `JSON Binding` 的官方参考实现,所以使用`JSON-B`时需要额外依赖
+```xml
+<dependency>
+    <groupId>org.eclipse</groupId>
+    <artifactId>yasson</artifactId>
+    <version>2.0.4</version>
+</dependency>
 ```

@@ -14,6 +14,10 @@ public enum Impls {
      * gson
      */
     GSON("com.google.gson.Gson"),
+    /**
+     * JSONB
+     */
+    JSONB("jakarta.json.bind"),
     ;
 
     private final String value;

@@ -2,6 +2,7 @@ package com.hb0730.jsons;
 
 import com.hb0730.jsons.support.gson.GsonImpl;
 import com.hb0730.jsons.support.jackson.JacksonImpl;
+import com.hb0730.jsons.support.jsonb.JsonbImpl;
 import com.hb0730.jsons.util.ClassUtil;
 import com.hb0730.jsons.util.Impls;
 
@@ -21,6 +22,8 @@ public class SimpleJsonProxy implements SimpleJson {
             defaultJson = getProxy(JacksonImpl.class);
         } else if (ClassUtil.isPresent(Impls.GSON.getValue(), classLoader)) {
             defaultJson = getProxy(GsonImpl.class);
+        } else if (ClassUtil.isPresent(Impls.JSONB.getValue(), classLoader)) {
+            defaultJson = getProxy(JsonbImpl.class);
         }
         if (defaultJson == null) {
             throw new SimpleJsonException("Has no JsonImpl defined in environment!");
