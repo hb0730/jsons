@@ -42,7 +42,6 @@ public class JacksonImpl extends AbstractSimpleJson {
             if (null == client) {
                 return this.mapper.writeValueAsString(obj);
             }
-            supportType(client);
             return ((ObjectMapper) client).writeValueAsString(obj);
         } catch (Exception e) {
             throw new SimpleJsonException(e);
@@ -55,7 +54,6 @@ public class JacksonImpl extends AbstractSimpleJson {
             if (null == client) {
                 return this.mapper.readValue(json, clazz);
             }
-            supportType(client);
             return ((ObjectMapper) client).readValue(json, clazz);
         } catch (Exception e) {
             throw new SimpleJsonException(e);
@@ -64,17 +62,14 @@ public class JacksonImpl extends AbstractSimpleJson {
 
     @Override
     @SuppressWarnings({"unchecked"})
-    protected <T, Type, C> T doFromJson(String json, Type type, C client) {
-        supportJavaType(type);
+    protected <T, ValueType, C> T doFromJson(String json, ValueType type, C client) {
         boolean javaType = type instanceof JavaType;
-
         try {
             if (null == client && javaType) {
                 return this.mapper.readValue(json, (JavaType) type);
             } else if (null == client) {
                 return this.mapper.readValue(json, (TypeReference<? extends T>) type);
             }
-            supportType(client);
             if (javaType) {
                 return ((ObjectMapper) client).readValue(json, (JavaType) type);
             } else {
@@ -91,7 +86,7 @@ public class JacksonImpl extends AbstractSimpleJson {
         }
     }
 
-    protected <type> void supportJavaType(type type) {
+    protected <ValueType> void supportJavaType(ValueType type) {
         if (!(type instanceof JavaType) && !(type instanceof TypeReference)) {
             throw new SimpleJsonException("java type mismatch");
         }

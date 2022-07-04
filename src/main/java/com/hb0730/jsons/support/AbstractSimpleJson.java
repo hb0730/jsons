@@ -19,6 +19,9 @@ public abstract class AbstractSimpleJson implements SimpleJson {
         if (null == obj) {
             return null;
         }
+        if (null != client) {
+            supportType(client);
+        }
         return doToJson(obj, client);
     }
 
@@ -34,23 +37,46 @@ public abstract class AbstractSimpleJson implements SimpleJson {
         if (StrUtil.isBlank(json)) {
             return null;
         }
+        if (null != client) {
+            supportType(client);
+        }
         return doFromJson(json, clazz, client);
     }
 
     protected abstract <T, C> T doFromJson(String json, Class<T> clazz, C client);
 
     @Override
-    public <T, Type> T fromJson(String json, Type type) {
+    public <T, ValueType> T fromJson(String json, ValueType type) {
         return fromJson(json, type, null);
     }
 
     @Override
-    public <T, Type, C> T fromJson(String json, Type type, C client) {
+    public <T, ValueType, C> T fromJson(String json, ValueType type, C client) {
         if (StrUtil.isBlank(json)) {
             return null;
+        }
+        supportJavaType(type);
+        if (null != client) {
+            supportType(client);
         }
         return doFromJson(json, type, client);
     }
 
-    protected abstract <T, Type, C> T doFromJson(String json, Type type, C client);
+    protected abstract <T, ValueType, C> T doFromJson(String json, ValueType type, C client);
+
+    /**
+     * 是否为支持的客户端类型
+     *
+     * @param client 客户端类型
+     * @param <C>    客户端类型
+     */
+    protected abstract <C> void supportType(C client);
+
+    /**
+     * 是否为支持的Java序列化类型
+     *
+     * @param type       java 类型
+     * @param <ValueType> java 类型
+     */
+    protected abstract <ValueType> void supportJavaType(ValueType type);
 }

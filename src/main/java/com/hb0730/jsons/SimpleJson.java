@@ -13,8 +13,7 @@ public interface SimpleJson {
      * <ul>
      *     <li>jackson->{@link  com.fasterxml.jackson.databind.ObjectMapper}</li>
      *     <li>gson->{@link  com.google.gson.Gson}</li>
-     *     <li>fastJson->{@link  com.alibaba.fastjson.JSON}</li>
-     *     <li>fastJson2 -> {@link  com.alibaba.fastjson2.JSON}</li>
+     *     <li>jsonb->{@link jakarta.json.bind.Jsonb}</li>
      * </ul>
      *
      * @param <C> core class type
@@ -27,8 +26,7 @@ public interface SimpleJson {
      * <ul>
      *     <li>jackson->{@link  com.fasterxml.jackson.databind.ObjectMapper}</li>
      *     <li>gson->{@link  com.google.gson.Gson}</li>
-     *     <li>fastJson->{@link  com.alibaba.fastjson.JSON}</li>
-     *     <li>fastJson2 -> {@link  com.alibaba.fastjson2.JSON}</li>
+     *     <li>jsonb->{@link jakarta.json.bind.Jsonb}</li>
      * </ul>
      *
      * @param client core class
@@ -49,8 +47,7 @@ public interface SimpleJson {
      * <ul>
      *     <li>jackson->{@link  com.fasterxml.jackson.databind.ObjectMapper}</li>
      *     <li>gson->{@link  com.google.gson.Gson}</li>
-     *     <li>fastJson->{@link  com.alibaba.fastjson.JSON}</li>
-     *     <li>fastJson2 -> {@link  com.alibaba.fastjson2.JSON}</li>
+     *     <li>json-b->{@link  jakarta.json.bind.Jsonb}</li>
      * </ul>
      *
      * @param obj    object
@@ -66,7 +63,7 @@ public interface SimpleJson {
      * @param json  json string
      * @param clazz object class
      * @param <T>   object class type
-     * @return Object,可能为空
+     * @return Object, 可能为空
      */
     <T> T fromJson(String json, Class<T> clazz);
 
@@ -78,7 +75,7 @@ public interface SimpleJson {
      * @param client core class
      * @param <T>    object class type
      * @param <C>    core class type
-     * @return Object,可能为空
+     * @return Object, 可能为空
      */
     <T, C> T fromJson(String json, Class<T> clazz, C client);
 
@@ -86,24 +83,24 @@ public interface SimpleJson {
     /**
      * json string to Object
      *
-     * @param json   json字符串
-     * @param type   复杂类型,比如:{@link  java.lang.reflect.Type},{@link  com.fasterxml.jackson.core.type.TypeReference}
-     * @param <T>    结果类型
-     * @param <Type> 复杂类型
-     * @return Object,可能为空
+     * @param json        json字符串
+     * @param type        复杂类型,比如:{@link  java.lang.reflect.Type},{@link  com.fasterxml.jackson.core.type.TypeReference}
+     * @param <T>         结果类型
+     * @param <ValueType> 复杂类型
+     * @return Object, 可能为空
      */
-    <T, Type> T fromJson(String json, Type type);
+    <T, ValueType> T fromJson(String json, ValueType type);
 
     /**
      * json string to Object
      *
-     * @param json   json字符串
-     * @param type   复杂类型,比如:{@link  java.lang.reflect.Type},{@link  com.fasterxml.jackson.core.type.TypeReference}
-     * @param client json客户端
-     * @param <T>    结果类型
-     * @param <C>    json客户端类型
-     * @param <Type> 复杂类型
-     * @return Object,可能为空
+     * @param json        json字符串
+     * @param type        复杂类型,比如:{@link  java.lang.reflect.Type},{@link  com.fasterxml.jackson.core.type.TypeReference}
+     * @param client      json客户端
+     * @param <T>         结果类型
+     * @param <C>         json客户端类型
+     * @param <ValueType> 复杂类型
+     * @return Object, 可能为空
      */
-    <T, Type, C> T fromJson(String json, Type type, C client);
+    <T, ValueType, C> T fromJson(String json, ValueType type, C client);
 }
