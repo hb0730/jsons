@@ -22,7 +22,7 @@ public enum Impls {
     /**
      * JSONB
      */
-    JSONB("jakarta.json.bind", JsonbImpl.class),
+    JSONB("jakarta.json.bind.Jsonb", JsonbImpl.class),
     ;
 
     private final String value;
