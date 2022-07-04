@@ -1,8 +1,5 @@
 package com.hb0730.jsons;
 
-import com.hb0730.jsons.support.gson.GsonImpl;
-import com.hb0730.jsons.support.jackson.JacksonImpl;
-import com.hb0730.jsons.support.jsonb.JsonbImpl;
 import com.hb0730.jsons.util.ClassUtil;
 import com.hb0730.jsons.util.Impls;
 
@@ -16,14 +13,15 @@ public class SimpleJsonProxy implements SimpleJson {
     private static SimpleJson proxy;
 
     private void selectJsonProxy() {
-        SimpleJson defaultJson = null;
         ClassLoader classLoader = SimpleJsonProxy.class.getClassLoader();
-        if (ClassUtil.isPresent(Impls.JACKSON.getValue(), classLoader)) {
-            defaultJson = getProxy(JacksonImpl.class);
-        } else if (ClassUtil.isPresent(Impls.GSON.getValue(), classLoader)) {
-            defaultJson = getProxy(GsonImpl.class);
-        } else if (ClassUtil.isPresent(Impls.JSONB.getValue(), classLoader)) {
-            defaultJson = getProxy(JsonbImpl.class);
+        Impls[] values = Impls.values();
+        SimpleJson defaultJson = null;
+        for (Impls value : values) {
+            String clazzName = value.getValue();
+            if (ClassUtil.isPresent(clazzName, classLoader)) {
+                defaultJson = getProxy(value.getCalzz());
+                break;
+            }
         }
         if (defaultJson == null) {
             throw new SimpleJsonException("Has no JsonImpl defined in environment!");
@@ -93,13 +91,13 @@ public class SimpleJsonProxy implements SimpleJson {
     }
 
     @Override
-    public <T, Type> T fromJson(String json, Type type) {
+    public <T, ValueType> T fromJson(String json, ValueType type) {
         checkProxyNotNull(proxy);
         return proxy.fromJson(json, type);
     }
 
     @Override
-    public <T, Type, C> T fromJson(String json, Type type, C client) {
+    public <T, ValueType, C> T fromJson(String json, ValueType type, C client) {
         checkProxyNotNull(proxy);
         return proxy.fromJson(json, type, client);
     }
